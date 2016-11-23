@@ -12,8 +12,8 @@ ST                     = CA
 L                      = San Francisco
 O                      = Example Co
 OU                     = techops
-CN                     = {{name}}
-emailAddress           = {{name}}@example.com
+CN                     = localhost
+emailAddress           = certs@example.com
 
 [ req_attributes ]
 challengePassword      = password
