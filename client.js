@@ -12,6 +12,8 @@ const options = {
   port,
   path: '/',
   method: 'GET',
+  key: [fs.readFileSync(`${CONFIG_DIR}/client1-key.pem`)],
+  cert: [fs.readFileSync(`${CONFIG_DIR}/client1-crt.pem`)],
   ca: [fs.readFileSync(`${CONFIG_DIR}/ca-crt.pem`)]
 };
 
@@ -22,3 +24,7 @@ const req = https.request(options, res => {
 });
 
 req.end();
+
+req.on('error', error => {
+  console.error(error);
+});

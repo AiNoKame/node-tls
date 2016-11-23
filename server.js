@@ -7,7 +7,9 @@ const CONFIG_DIR = './config';
 const options = {
   key: fs.readFileSync(`${CONFIG_DIR}/server-key.pem`),
   cert: fs.readFileSync(`${CONFIG_DIR}/server-crt.pem`),
-  ca: [fs.readFileSync(`${CONFIG_DIR}/ca-crt.pem`)]
+  ca: [fs.readFileSync(`${CONFIG_DIR}/ca-crt.pem`)],
+  requestCert: true,
+  rejectUnauthorized: true
 };
 
 const host = 'localhost';
