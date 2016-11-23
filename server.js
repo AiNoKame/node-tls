@@ -2,11 +2,12 @@
 
 const fs = require('fs');
 const https = require('https');
+const CONFIG_DIR = './config';
 
 const options = {
-  key: fs.readFileSync('config/server-key.pem'),
-  cert: fs.readFileSync('config/server-crt.pem'),
-  ca: [fs.readFileSync('config/ca-crt.pem')],
+  key: fs.readFileSync(`${CONFIG_DIR}/server-key.pem`),
+  cert: fs.readFileSync(`${CONFIG_DIR}/server-crt.pem`),
+  ca: [fs.readFileSync(`${CONFIG_DIR}/ca-crt.pem`)]
 };
 
 const host = 'localhost';
@@ -17,7 +18,7 @@ const server = https.createServer(options, (req, res) => {
     `${new Date()} ${req.connection.remoteAddress} ${req.method} ${req.url}`);
 
   res.writeHead(200);
-  res.end("hello world\n");
+  res.end('hello world\n');
 });
 
 server.listen(port, host);
