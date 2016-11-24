@@ -1,0 +1,1 @@
+R	190819233211Z	161124000037Z	BB0446B2DEDFA14A	unknown	/C=US/ST=MA/L=Boston/O=Example Co/OU=techops/CN=client2/emailAddress=certs@example.com

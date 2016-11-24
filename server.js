@@ -8,6 +8,7 @@ const options = {
   key: fs.readFileSync(`${CONFIG_DIR}/server-key.pem`),
   cert: fs.readFileSync(`${CONFIG_DIR}/server-crt.pem`),
   ca: [fs.readFileSync(`${CONFIG_DIR}/ca-crt.pem`)],
+  crl: [fs.readFileSync(`${CONFIG_DIR}/ca-crl.pem`)],
   requestCert: true,
   rejectUnauthorized: true
 };
