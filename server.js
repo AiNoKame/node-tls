@@ -2,19 +2,18 @@
 
 const fs = require('fs');
 const https = require('https');
-const CONFIG_DIR = './config';
+const CONFIG_DIR = './certs/provider';
 
 const options = {
-  key: fs.readFileSync(`${CONFIG_DIR}/server-key.pem`),
-  cert: fs.readFileSync(`${CONFIG_DIR}/server-crt.pem`),
-  ca: [fs.readFileSync(`${CONFIG_DIR}/ca-crt.pem`)],
-  crl: [fs.readFileSync(`${CONFIG_DIR}/ca-crl.pem`)],
+  key: fs.readFileSync(`${CONFIG_DIR}/validator-server-key.pem`),
+  cert: fs.readFileSync(`${CONFIG_DIR}/validator-server-crt.pem`),
+  ca: [fs.readFileSync(`${CONFIG_DIR}/provider-ca-crt.pem`)],
   requestCert: true,
   rejectUnauthorized: true
 };
 
 const host = 'localhost';
-const port = 8000;
+const port = 8002;
 
 const server = https.createServer(options, (req, res) => {
   console.log(

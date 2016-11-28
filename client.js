@@ -2,19 +2,19 @@
 
 const fs = require('fs');
 const https = require('https');
-const CONFIG_DIR = './config';
+const CONFIG_DIR = './certs/provider';
 
 const host = 'localhost';
-const port = 8000;
+const port = 8002;
 
 const options = {
   hostname: host,
   port,
   path: '/',
   method: 'GET',
-  key: [fs.readFileSync(`${CONFIG_DIR}/client1-key.pem`)],
-  cert: [fs.readFileSync(`${CONFIG_DIR}/client1-crt.pem`)],
-  ca: [fs.readFileSync(`${CONFIG_DIR}/ca-crt.pem`)]
+  key: fs.readFileSync(`${CONFIG_DIR}/ripple-connect-server-key.pem`),
+  cert: fs.readFileSync(`${CONFIG_DIR}/ripple-connect-server-crt.pem`),
+  ca: [fs.readFileSync(`${CONFIG_DIR}/provider-ca-crt.pem`)]
 };
 
 const req = https.request(options, res => {
