@@ -1,8 +1,8 @@
 'use strict';
 
 require('ssl-root-cas')
-.addFile(__dirname + `/certs/provider/provider-ca-crt.pem`)
-.addFile(__dirname + `/certs/consumer/consumer-ca-crt.pem`);
+.addFile(__dirname + `/certs/consumer/consumer-ca-crt.pem`)
+.addFile(__dirname + `/certs/provider/provider-ca-crt.pem`);
 const fs = require('fs');
 const https = require('https');
 const CERTS_DIR = './certs'
@@ -30,9 +30,9 @@ const options = {
   // key: [key1, key2],
   // cert: [cert1, cert2],
   // ca: [cafull]
-  key: [key1],
-  cert: [cert1],
-  // ca: [ca1] // include either this ca option or use ssl-root-cas
+  key: [key2],
+  cert: [cert2],
+  // ca: [ca2] // include either this ca option or use ssl-root-cas
 };
 
 const req = https.request(options, res => {
