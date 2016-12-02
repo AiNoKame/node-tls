@@ -19,7 +19,7 @@ prompt                 = no
 output_password        = password
 
 [ req_distinguished_name ]
-C                      = AM
+C                      = US
 ST                     = CA
 L                      = San Francisco
 O                      = Example Co

@@ -2,26 +2,33 @@
 
 const fs = require('fs');
 const https = require('https');
-const CERTS_DIR = './certs'
+const CERTS_DIR = __dirname + '/certs'
 const PROVIDER_CERTS_DIR = `${CERTS_DIR}/provider`;
 const CONSUMER_CERTS_DIR = `${CERTS_DIR}/consumer`;
 
-const ledger0Key1 = fs.readFileSync(`${PROVIDER_CERTS_DIR}/ledger0-server-key.pem`);
-const ledger0Cert1 = fs.readFileSync(`${PROVIDER_CERTS_DIR}/ledger0-server-crt.pem`);
-const key1 = fs.readFileSync(`${PROVIDER_CERTS_DIR}/ripple-connect-server-key.pem`);
-const cert1 = fs.readFileSync(`${PROVIDER_CERTS_DIR}/ripple-connect-server-crt.pem`);
-const ca1 = fs.readFileSync(`${PROVIDER_CERTS_DIR}/provider-ca-crt.pem`);
+const ledger0Key1 = fs.readFileSync(`${PROVIDER_CERTS_DIR}/ledger0-server-key.pem`, 'utf8');
+const ledger0Cert1 = fs.readFileSync(`${PROVIDER_CERTS_DIR}/ledger0-server-crt.pem`, 'utf8');
+const key1 = fs.readFileSync(`${PROVIDER_CERTS_DIR}/ripple-connect-server-key.pem`, 'utf8');
+const cert1 = fs.readFileSync(`${PROVIDER_CERTS_DIR}/ripple-connect-server-crt.pem`, 'utf8');
+const ca1 = fs.readFileSync(`${PROVIDER_CERTS_DIR}/provider-ca-crt.pem`, 'utf8');
+// const crl1 = fs.readFileSync(`${PROVIDER_CERTS_DIR}/provider-ca-crl.pem`, 'utf8');
 
-const ledger0Key2 = fs.readFileSync(`${CONSUMER_CERTS_DIR}/ledger0-server-key.pem`);
-const ledger0Cert2 = fs.readFileSync(`${CONSUMER_CERTS_DIR}/ledger0-server-crt.pem`);
-const key2 = fs.readFileSync(`${CONSUMER_CERTS_DIR}/ripple-connect-server-key.pem`);
-const cert2 = fs.readFileSync(`${CONSUMER_CERTS_DIR}/ripple-connect-server-crt.pem`);
-const ca2 = fs.readFileSync(`${CONSUMER_CERTS_DIR}/consumer-ca-crt.pem`);
+const ledger0Key2 = fs.readFileSync(`${CONSUMER_CERTS_DIR}/ledger0-server-key.pem`, 'utf8');
+const ledger0Cert2 = fs.readFileSync(`${CONSUMER_CERTS_DIR}/ledger0-server-crt.pem`, 'utf8');
+const key2 = fs.readFileSync(`${CONSUMER_CERTS_DIR}/ripple-connect-server-key.pem`, 'utf8');
+const cert2 = fs.readFileSync(`${CONSUMER_CERTS_DIR}/ripple-connect-server-crt.pem`, 'utf8');
+const ca2 = fs.readFileSync(`${CONSUMER_CERTS_DIR}/consumer-ca-crt.pem`, 'utf8');
+// const crl2 = fs.readFileSync(`${CONSUMER_CERTS_DIR}/consumer-ca-crl.pem`, 'utf8');
 
 const options = {
+  // key: ledger0Key2,
+  // cert: ledger0Cert2,
+  // ca: [ca2, ca1],
+  // crl: [crl2, crl1],
   key: ledger0Key1,
   cert: ledger0Cert1,
-  ca: [ca1],
+  ca: [ca1, ca2],
+  // crl: [crl1, crl2],
   requestCert: true,
   rejectUnauthorized: true
 };
@@ -30,8 +37,11 @@ const host = "0.0.0.0";
 const port = 8002;
 
 const server = https.createServer(options, (req, res) => {
+  const clientCert = req.client.getPeerCertificate();
   console.log(
     `${new Date()} ${req.connection.remoteAddress} ${req.method} ${req.url}`);
+  console.log(
+    `Certificate info! ${JSON.stringify(clientCert.subject, true, 2)}`);
 
   // res.writeHead(200);
   // res.end('hello world\n');
