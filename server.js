@@ -25,7 +25,7 @@ const ledger0Cert2 = fs.readFileSync(`${CONSUMER_CERTS_DIR}/ledger0-server-crt.p
 const options = {
   // key: ledger0Key2,
   // cert: ledger0Cert2,
-  // ca: [ca2, ca1],
+  // ca: [ca2, ca1], // can be in any order
   key: ledger0Key1,
   cert: ledger0Cert1,
   ca: [ca2, ca1], // can be in any order

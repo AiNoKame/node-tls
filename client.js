@@ -21,7 +21,7 @@ const options = {
   method: 'GET',
   key: [key1],
   cert: [cert1],
-  ca: [ca1, ca2] // can be in any order
+  ca: [ca1] // can be in any order
 };
 
 const req = https.request(options, res => {
