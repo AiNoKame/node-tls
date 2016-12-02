@@ -1,11 +1,8 @@
 'use strict';
 
-require('ssl-root-cas')
-.addFile(__dirname + `/certs/consumer/consumer-ca-crt.pem`)
-.addFile(__dirname + `/certs/provider/provider-ca-crt.pem`);
 const fs = require('fs');
 const https = require('https');
-const CERTS_DIR = './certs'
+const CERTS_DIR = __dirname + '/certs'
 const PROVIDER_CERTS_DIR = `${CERTS_DIR}/provider`;
 const CONSUMER_CERTS_DIR = `${CERTS_DIR}/consumer`;
 
@@ -17,8 +14,6 @@ const key2 = fs.readFileSync(`${CONSUMER_CERTS_DIR}/ripple-connect-server-key.pe
 const cert2 = fs.readFileSync(`${CONSUMER_CERTS_DIR}/ripple-connect-server-crt.pem`, 'utf8');
 const ca2 = fs.readFileSync(`${CONSUMER_CERTS_DIR}/consumer-ca-crt.pem`, 'utf8');
 
-const cafull = fs.readFileSync(`${CERTS_DIR}/fullchain.pem`, 'utf8');
-
 const host = 'localhost';
 const port = 8002;
 
@@ -27,12 +22,9 @@ const options = {
   port,
   path: '/',
   method: 'GET',
-  // key: [key1, key2],
-  // cert: [cert1, cert2],
-  // ca: [cafull]
   key: [key2],
   cert: [cert2],
-  ca: [ca2] // include either this ca option or use ssl-root-cas
+  ca: [ca1, ca2] // can be in any order
 };
 
 const req = https.request(options, res => {
